@@ -38,21 +38,28 @@ class Game
   end
 
   def set_board
-    @board = Board.set_up
+    @board = Board.new
   end
 
   def game_loop
     @current_player = @player2
     @enemy_player = @player1
 
-    until @board.win?
+    until @board.check_win
       @current_player, @enemy_player = @enemy_player, @current_player
       @board.display
-      move = @current_player.move
-      @board.update(move)
+      move = @current_player.move(@board)
+      # p move
+      # @board.update(move)
     end
 
-    puts "[Say (current_player) wins here]"
+    puts ""
+    @board.display
+    puts ""
+    puts "********"
+    puts @current_player.mark + " WINS!!!"
+    puts "********"
+    puts ""
     replay 
   end
 
@@ -66,3 +73,6 @@ class Game
 
 
 end #end Game class
+
+
+Game.new

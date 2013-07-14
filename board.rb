@@ -43,6 +43,10 @@ class Board
     new_board
   end
 
+  def place_mark(x,y,mark)
+    self.grid[x][y] = mark
+  end
+
   def check_horizontal
     win = false
     3.times do |i|
