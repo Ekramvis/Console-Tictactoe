@@ -64,8 +64,7 @@ class TreeNode
 		fringe = [self]
 
 		until fringe.empty?
-			
-
+		
 			test_case = fringe.shift
 
 			@solutions[:win] << test_case if test_case.check_win == target

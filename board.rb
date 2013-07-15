@@ -47,6 +47,10 @@ class Board
     self.grid[x][y] = mark
   end
 
+  def validate_move(x,y)
+    self.grid[x][y].nil?
+  end
+
   def check_horizontal
     win = false
     3.times do |i|
@@ -79,6 +83,6 @@ class Board
   end
 
   def check_win
-    check_horizontal || check_vertical || check_diagonal
+    check_horizontal || check_vertical || check_diagonal || self.grid.flatten.none? { |spot| spot == nil }
   end
 end

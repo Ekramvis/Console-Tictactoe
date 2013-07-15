@@ -3,7 +3,8 @@ load 'human.rb'
 load 'computer.rb'
 load 'board.rb'
 load 'MainUI.rb'
-load 'treenode.rb'
+# load 'AI.rb'
+load 'test_code.rb'
 
 class Game
 
@@ -29,8 +30,8 @@ class Game
       @player1 = Human.new("X")
       @player2 = Human.new("O")
     when '2'
-      @player1 = Human.new("X")
-      @player2 = Computer.new("O")
+      @player1 = Computer.new("X")
+      @player2 = Human.new("O")
     when '3'
       @player1 = Computer.new("X")
       @player2 = Computer.new("O")
@@ -49,22 +50,30 @@ class Game
       @current_player, @enemy_player = @enemy_player, @current_player
       @board.display
       move = @current_player.move(@board)
-      # p move
-      # @board.update(move)
     end
 
     puts ""
     @board.display
-    puts ""
-    puts "********"
-    puts @current_player.mark + " WINS!!!"
-    puts "********"
-    puts ""
+
+    if @board.grid.flatten.none? { |spot| spot == nil }
+      puts ""
+      puts "********"
+      puts "DRAW!!!!"
+      puts "********"
+      puts ""
+    else
+      puts ""
+      puts "********"
+      puts @current_player.mark + " WINS!!!" 
+      puts "********"
+      puts ""
+    end
+
     replay 
   end
 
   def replay
-    MainUI.replay? ? self.play : exit
+    MainUI.replay? ? Game.play : exit
   end
 
   def exit
