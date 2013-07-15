@@ -4,10 +4,9 @@ class MainUI
 		puts "Welcome to TicTacToe!"
 	  puts 
 	  puts "Please enter your selection:"
-	  puts "  '1' for Human vs. Human"
-	  puts "  '2' for Human vs. Computer"
-	  puts "  '3' for Computer vs. Computer"
-	  puts "  '4' to quit the game"
+	  puts "  '1' Human vs. Human"
+	  puts "  '2' Human vs. Computer"
+	  puts "  '3' Quit"
 	  puts 
 
 	  gets.chomp

@@ -29,9 +29,8 @@ class Computer < Player
   end
 
   def random_move
-    x = rand(3)
-    y = rand(3)
-    [x,y]
+    openers = [[1,1],[0,2],[2,0],[2,2],[0,0]]
+    openers.sample
   end
 
 
@@ -64,8 +63,14 @@ class Computer < Player
         y_counter += 1 if spot == "O"
         loc = [i,y] if spot == nil  
       end
-      gap = loc if (x_counter == 2 || y_counter == 2)
+
+      if x_counter == 2 && !loc.empty?
+        gap = loc
+      elsif y_counter == 2 && gap.size == 0 && !loc.empty?
+        gap = loc
+      end
     end
+
     gap 
   end
 
@@ -81,8 +86,14 @@ class Computer < Player
         y_counter += 1 if spot == "O"
         loc = [y,i] if spot == nil 
       end
-      gap = loc if (x_counter == 2 || y_counter == 2) 
+
+      if x_counter == 2 && !loc.empty?
+        gap = loc
+      elsif y_counter == 2 && gap.size == 0 && !loc.empty?
+        gap = loc
+      end
     end
+
     gap 
   end
 

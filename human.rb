@@ -8,8 +8,7 @@ class Human < Player
     x = move[0]
     y = move[1]
 
-
-    until game.validate_move(x,y)
+    until input_valid(move) && game.validate_move(x,y)
       puts "Not a good spot. Pick another spot (E.g. A2)"
       move = gets.chomp.split("")
       move.map! { |v| converter(v) }
@@ -28,7 +27,12 @@ class Human < Player
     when "1" then 0
     when "2" then 1
     when "3" then 2
+    else 10
     end
+  end
+
+  def input_valid(input)
+    input[0].between?(0,2)  && input[1].between?(0,2)
   end
 
 end

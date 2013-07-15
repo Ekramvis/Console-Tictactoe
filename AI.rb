@@ -1,7 +1,7 @@
 class AI_Player
-  attr_accessor :loc, :symbol, :parent, :children, :win, :solutions, :grid 
+  attr_accessor :starting, :loc, :symbol, :parent, :children, :win, :solutions, :grid 
 
-  def initialize(loc, symbol, parent = nil)
+  def initialize(loc, symbol, parent = nil, starting = nil)
     @loc = loc
     @symbol = symbol
     @parent = parent
@@ -9,9 +9,9 @@ class AI_Player
 
     reset_symbol if @parent 
 
-    @parent ? @grid = parent.dup_grid : @grid = Array.new(3) {[nil] * 3}
+    @grid = @parent ? parent.dup_grid : starting
 
-    update_board
+    update_board unless starting
 
     @win = self.check_win
 
@@ -125,7 +125,7 @@ class AI_Player
 
     self.grid.each_with_index do |row, x|
       row.each_index do |y|
-        if self.grid[x][y] == self.symbol
+        if self.grid[x][y] == :x || self.grid[x][y] == :y
           completed_moves << [x,y] 
         elsif self.grid[x][y] == nil
           random_moves << [x,y]
@@ -144,7 +144,11 @@ class AI_Player
     winning_moves.uniq!
     winning_moves.select! { |move| !completed_moves.include?(move) }
 
-    next_move = winning_moves.empty? ? random_moves.sample : winning_moves.sample 
+    if winning_moves.empty? 
+      next_move = random_moves.sample
+    else
+      next_move = winning_moves.sample
+    end
 
     next_move
   end

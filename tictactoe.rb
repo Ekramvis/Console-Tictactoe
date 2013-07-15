@@ -3,8 +3,8 @@ load 'human.rb'
 load 'computer.rb'
 load 'board.rb'
 load 'MainUI.rb'
-# load 'AI.rb'
-load 'test_code.rb'
+load 'AI.rb'
+# load 'test_code.rb'
 
 class Game
 
@@ -15,7 +15,11 @@ class Game
   def initialize
     game_type = set_params
     return exit if game_type == 'Q'
-    set_players(game_type)
+    menu = set_players(game_type)
+    if menu == "quit"
+      return exit 
+    end
+
     set_board
     game_loop
   end
@@ -33,8 +37,7 @@ class Game
       @player1 = Computer.new("X")
       @player2 = Human.new("O")
     when '3'
-      @player1 = Computer.new("X")
-      @player2 = Computer.new("O")
+      "quit"
     end
   end
 
